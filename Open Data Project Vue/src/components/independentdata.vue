@@ -22,17 +22,18 @@ const props = defineProps({
     y: String
 });
 
-const data = ref({});
-async function fetchData(id) {
+const route = useRoute()
+async function getData(id) {
     const response = await fetch(`https://data.cityofnewyork.us/api/v3/views/vfnx-vebw/rows.json?accessType=DOWNLOAD&bom=true&format=json&filename=squirrel-data.json`);
     const json = await response.json();
     data.value=json.data;
+    console.log(data.value);
 }
 onMounted(() => {
-    fetchData(route.params.id);
+    getData(route.params.id);
 })
 watch(() => route.params.id, (newId) => {
-    fetchData(newId);
+    getData(newId);
 })
 </script>
 
