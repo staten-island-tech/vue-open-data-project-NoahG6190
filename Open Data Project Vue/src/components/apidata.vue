@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <Datacard v-for="item in data" :key="item[0]" :item="item" />
+    <Datacard v-for="(item, i) in data" :key="item.unique_squirrel_id || i" :uniquesquirrelid="item.unique_squirrel_id || item.uniquesquirrelid" :age="item.age || item.age_group || ''" :primaryfurcolor="item.primary_fur_color || item.primaryfurcolor || ''" :x="Number(item.longitude) || Number(item.x) || 0" :y="Number(item.latitude) || Number(item.y) || 0" />
     </div>
 </template>
 
@@ -11,9 +11,9 @@ import Datacard from './datacard.vue';
 const data = ref([]);
 async function fetchData() {
     try {
-        const response = await fetch("https://data.cityofnewyork.us/api/v3/views/vfnx-vebw/query.json");
-        data.value = await response.json();
-        console.log(data.value);
+        const response = await fetch("https://data.cityofnewyork.us/api/v3/resource/vfnx-vebw/query.json");
+       const data = await response.json();
+       data.value = data.results;
     } catch (error) {
         console.error( error);
     }

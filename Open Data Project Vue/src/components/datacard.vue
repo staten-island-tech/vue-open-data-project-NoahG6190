@@ -1,7 +1,7 @@
 <template>
     <div class="card">
 
-        <router-link to="/independentdata">Independent Data</router-link>
+        <router-link :to="independentdataPath">Independent Data</router-link>
         <h2>Squirrel ID: {{ props.uniquesquirrelid }}</h2>
         <h3>Age: {{ props.age }}</h3>
         <h3>Primary Fur Color: {{ props.primaryfurcolor }}</h3>
@@ -10,7 +10,6 @@
 
 <script setup>
 import { computed } from 'vue';
-import { defineProps } from 'vue';
 
 const props = defineProps({
     x: {
@@ -26,7 +25,7 @@ const props = defineProps({
         required: true
     },
    age: {
-        type: Number,
+        type: String,
         required: true
     },
    primaryfurcolor: {
@@ -34,7 +33,7 @@ const props = defineProps({
        required: true
    },
 })
-const dataPath = computed(() => {
+const independentdataPath = computed(() => {
     return `/api/squirrels/${props.uniquesquirrelid}`;
 });
 
