@@ -16,10 +16,10 @@ import { defineProps } from 'vue';
 
 const props = defineProps({
     uniquesquirrelid: String,
-    age: Number,
+    age: String,
     primaryfurcolor: String,
-    x: Number,
-    y: Number
+    x: String,
+    y: String
 });
 
 const data = ref({});

@@ -14,24 +14,24 @@ import { defineProps } from 'vue';
 
 const props = defineProps({
     x: {
-        type: Number,
-        required: true
-    },
-    y: {
-        type: Number,
-        required: true
-    },
-    uniquesquirrelid:{
         type: String,
         required: true
     },
-   age: {
-        type: Number,
-        required: true
+    y: {
+        type: String,
+        required: true,
     },
+    uniquesquirrelid:{
+        type: String,
+        required: true,
+    },
+   age: {
+       type: String,
+       required: true,
+   },
    primaryfurcolor: {
        type: String,
-       required: true
+       required: true,
    },
 })
 const dataPath = computed(() => {
