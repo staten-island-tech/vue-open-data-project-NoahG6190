@@ -1,6 +1,6 @@
 <template>
     <div>
-        <router-link to="/apidata">View Details</router-link>
+        <router-link to="/apidata">API Data</router-link>
         <h2>Squirrel ID: {{ props.uniquesquirrelid }}</h2>
         <h3>Age: {{ props.age }}</h3>
         <h3>Primary Fur Color: {{ props.primaryfurcolor }}</h3>
@@ -22,12 +22,11 @@ const props = defineProps({
     y: Number
 });
 
-const route = useRoute()
-async function getData(id) {
+const data = ref({});
+async function fetchData(id) {
     const response = await fetch(`https://data.cityofnewyork.us/api/v3/views/vfnx-vebw/rows.json?accessType=DOWNLOAD&bom=true&format=json&filename=squirrel-data.json`);
     const json = await response.json();
     data.value=json.data;
-    console.log(data.value);
 }
 onMounted(() => {
     getData(route.params.id);
@@ -35,6 +34,7 @@ onMounted(() => {
 watch(() => route.params.id, (newId) => {
     getData(newId);
 })
+const data= ref({});
 </script>
 
 <style  scoped>
