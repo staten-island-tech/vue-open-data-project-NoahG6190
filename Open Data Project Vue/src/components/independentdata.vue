@@ -16,10 +16,10 @@ import { defineProps } from 'vue';
 
 const props = defineProps({
     uniquesquirrelid: String,
-    age: String,
+    age: Number,
     primaryfurcolor: String,
-    x: String,
-    y: String
+    x: Number,
+    y: Number
 });
 
 const route = useRoute()
