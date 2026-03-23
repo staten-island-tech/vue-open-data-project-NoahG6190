@@ -1,19 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import apidata from '@/components/apidata.vue'
-import independentdata from '@/components/independentdata.vue'
+import CausesListView from '../views/CausesListView.vue'
+import CauseDetailView from '../views/CauseDetailView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'apidata',
-      component: apidata,
+      name: 'home',
+      component: CausesListView,
     },
     {
-      path: '/api/squirrels/:id',
-      name: 'independentdata',
-      component: independentdata,
+      path: '/cause/:id',
+      name: 'detail',
+      component: CauseDetailView,
     },
   ],
 })
