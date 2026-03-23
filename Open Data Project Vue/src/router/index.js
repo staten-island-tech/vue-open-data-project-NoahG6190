@@ -11,7 +11,7 @@ const router = createRouter({
       component: apidata,
     },
     {
-      path: '/independentdata',
+      path: '/api/squirrels/:id',
       name: 'independentdata',
       component: independentdata,
     },

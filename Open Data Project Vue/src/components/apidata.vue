@@ -1,6 +1,12 @@
 <template>
     <div class="container">
-    <Datacard v-for="(item, i) in data" :key="item.unique_squirrel_id || i" :uniquesquirrelid="item.unique_squirrel_id || item.uniquesquirrelid" :age="item.age || item.age_group || ''" :primaryfurcolor="item.primary_fur_color || item.primaryfurcolor || ''" :x="Number(item.longitude) || Number(item.x) || 0" :y="Number(item.latitude) || Number(item.y) || 0" />
+ <Datacard v-for "(items, i) in data"
+ :key= "item.unique_squirrel_id"
+ :age="item.age || ''"
+      :primaryfurcolor="item.primary_fur_color || ''"
+      :x="Number(item.x) || 0"
+      :y="Number(item.y) || 0"
+    />
     </div>
 </template>
 
@@ -9,11 +15,12 @@ import { ref, onMounted } from 'vue';
 import Datacard from './datacard.vue';
 
 const data = ref([]);
+
 async function fetchData() {
     try {
-        const response = await fetch("https://data.cityofnewyork.us/api/v3/resource/vfnx-vebw/query.json");
-       const data = await response.json();
-       data.value = data.results;
+        const response = await fetch("https://data.cityofnewyork.us/api/v3/resource vfnx-vebw/query.json");
+       const json = await response.json();
+       data.value = json;
     } catch (error) {
         console.error( error);
     }

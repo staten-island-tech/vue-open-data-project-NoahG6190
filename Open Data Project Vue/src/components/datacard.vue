@@ -1,42 +1,40 @@
 <template>
-    <div class="card">
-
-        <router-link :to="independentdataPath">Independent Data</router-link>
-        <h2>Squirrel ID: {{ props.uniquesquirrelid }}</h2>
-        <h3>Age: {{ props.age }}</h3>
-        <h3>Primary Fur Color: {{ props.primaryfurcolor }}</h3>
-    </div>
+  <div class="card">
+    <router-link :to="independentdataPath" class="detail-link"> View Details</router-link>
+    <h2>Squirrel ID: {{ uniquesquirrelid }}</h2>
+    <h3>Age: {{ age }}</h3>
+    <h3>Primary Fur Color: {{ primaryfurcolor }}</h3>
+  </div>
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed } from 'vue'
 
 const props = defineProps({
-    x: {
-        type: Number,
-        required: true
-    },
-    y: {
-        type: Number,
-        required: true
-    },
-    uniquesquirrelid:{
-        type: String,
-        required: true
-    },
-   age: {
-        type: String,
-        required: true
-    },
-   primaryfurcolor: {
-       type: String,
-       required: true
-   },
+  x: {
+    type: Number,
+    required: true,
+  },
+  y: {
+    type: Number,
+    required: true,
+  },
+  uniquesquirrelid: {
+    type: String,
+    required: true,
+  },
+  age: {
+    type: String,
+    required: true,
+  },
+  primaryfurcolor: {
+    type: String,
+    required: true,
+  },
 })
 const independentdataPath = computed(() => {
-    return `/api/squirrels/${props.uniquesquirrelid}`;
-});
-
+  ;`/api/squirrels/${props.uniquesquirrelid}`
+})
 </script>
 
 <style scoped>
@@ -50,5 +48,11 @@ const independentdataPath = computed(() => {
   align-items: center;
   padding: 10px;
   text-transform: uppercase;
+}
+.detail-link {
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: blue;
+  font-weight: bold;
 }
 </style>
