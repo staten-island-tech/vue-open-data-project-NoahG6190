@@ -1,12 +1,15 @@
 <template>
-  <div class="container">
-    <CauseCard v-for="(record, index) in records" :key="index" :record="record" :id="index" />
+  <div class="page">
+    <h1>NYC Leading Causes of Death</h1>
+    <div class="card-grid">
+      <CauseCard v-for="(record, index) in records" :key="index" :record="record" :id="index" />
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import CauseCard from './causecard.vue'
+import CauseCard from '@/components/CauseCard.vue'
 
 const records = ref([])
 
@@ -26,15 +29,20 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-auto-rows: minmax(200px, 1fr);
-  gap: 24px;
-  width: 100%;
-  max-width: 1100px;
-  margin: 30px auto;
-  padding: 0 12px 24px 12px;
-  align-items: stretch;
+.page {
+  width: 90%;
+  margin: 40px auto;
+}
+
+h1 {
+  font-size: 1.8rem;
+  color: #1a1a2e;
+  margin-bottom: 32px;
+}
+
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 </style>
