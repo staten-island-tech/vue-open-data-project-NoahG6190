@@ -13,18 +13,27 @@ import { onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
-const squirrel = red(null)
+const squirrel = ref(null)
 
 async function fetchData(id) {
-  const response = await fetch(
-    "https://data.cityofnewyork.us/resource/vfnx-vebw/query.json",
-  )
-  const json = await response.json();
-squirrel.value=json.find(item=> item.unique_squirrel_id === id);
-} catch (error){
-console.error(error);
+  if (!id) {
+    squirrel.value = null
+    return
+  }
+  try {
+    // Query the resource endpoint for a specific unique id
+    const url = `https://data.cityofnewyork.us/resource/uvpi-gqnh.json?unique_squirrel_id=${encodeURIComponent(
+      id,
+    )}`
+    const response = await fetch(url)
+    const json = await response.json()
+    squirrel.value = Array.isArray(json) && json.length ? json[0] : null
+  } catch (error) {
+    console.error(error)
+    squirrel.value = null
+  }
 }
-}
+
 
 onMounted(() => {
   fetchData(route.params.id)
