@@ -33,18 +33,21 @@ const causePath = computed(() => {
 
 <style scoped>
 .card {
-  width: 28%;
-  background-color: aliceblue;
-  margin: 30px 0;
+  background-color: #eaeafc;
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  justify-content: space-between;
+  padding: 14px;
   text-decoration: none;
   color: black;
   text-transform: uppercase;
+  height: 100%;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(12,22,39,0.06);
+  border: 1px solid rgba(37,99,235,0.05);
 }
 
-.card:hover {
-  background-color: #d0e8f0;
+.card:hover{
+  transform: translateY(-6px);
 }
 </style>

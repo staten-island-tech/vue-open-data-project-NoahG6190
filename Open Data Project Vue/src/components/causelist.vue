@@ -27,12 +27,14 @@ onMounted(() => {
 
 <style scoped>
 .container {
-  width: 80vw;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-auto-rows: minmax(200px, 1fr);
+  gap: 24px;
+  width: 100%;
+  max-width: 1100px;
   margin: 30px auto;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-around;
+  padding: 0 12px 24px 12px;
+  align-items: stretch;
 }
 </style>
