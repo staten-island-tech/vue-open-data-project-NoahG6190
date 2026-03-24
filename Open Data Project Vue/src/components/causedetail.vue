@@ -1,8 +1,7 @@
-Copy
 
 <template>
   <div class="detail">
-    <router-link to="/">← Back</router-link>
+    <router-link to="/"> Back to List</router-link>
     <h1>{{ record.leading_cause }}</h1>
     <h2>{{ record.year }}</h2>
     <p>Sex: {{ record.sex }}</p>

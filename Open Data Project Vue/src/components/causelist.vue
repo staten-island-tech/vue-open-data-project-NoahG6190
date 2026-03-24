@@ -6,7 +6,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import CauseCard from '@/components/CauseCard.vue'
+import CauseCard from './causecard.vue'
 
 const records = ref([])
 

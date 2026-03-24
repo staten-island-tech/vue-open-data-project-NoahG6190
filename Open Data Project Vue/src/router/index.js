@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import CausesListView from '../views/CausesListView.vue'
-import CauseDetailView from '../views/CauseDetailView.vue'
+import causelist from '@/components/causelist.vue'
+import causedetail from '@/components/causedetail.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -8,12 +8,12 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: CausesListView,
+      component: causelist,
     },
     {
       path: '/cause/:id',
       name: 'detail',
-      component: CauseDetailView,
+      component: causedetail,
     },
   ],
 })
