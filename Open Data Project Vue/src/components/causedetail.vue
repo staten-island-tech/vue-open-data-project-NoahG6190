@@ -14,8 +14,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import DeathsBarChart from '@/components/DeathsBarChart.vue'
+import { ref, onMounted,  } from 'vue'
+import DeathsBarChart from './deathbarchart.vue'
 
 const record = ref({})
 
