@@ -1,13 +1,13 @@
 <template>
-  <Bar :data="chartData" :options="chartOptions" />
+  <Doughnut :data="chartData" :options="chartOptions" />
 </template>
 
 <script setup>
 import { computed } from 'vue'
-import { Bar } from 'vue-chartjs'
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip } from 'chart.js'
+import { Doughnut } from 'vue-chartjs'
+import { Chart as ChartJS, ArcElement, Tooltip, Title, Legend } from 'chart.js'
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip)
+ChartJS.register(ArcElement, Tooltip, Title, Legend)
 
 const props = defineProps({
   record: {
@@ -21,7 +21,6 @@ const chartData = computed(() => {
     labels: ['Death Rate', 'Age Adjusted Death Rate'],
     datasets: [
       {
-        label: 'Rate',
         data: [Number(props.record.death_rate), Number(props.record.age_adjusted_death_rate)],
         backgroundColor: ['#1a1a2e', '#c0392b'],
       },

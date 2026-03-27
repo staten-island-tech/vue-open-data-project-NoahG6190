@@ -1,6 +1,7 @@
 <template>
   <div class="page">
     <router-link to="/">← Back</router-link>
+
     <h1>{{ record.leading_cause }}</h1>
     <p>Year: {{ record.year }}</p>
     <p>Sex: {{ record.sex }}</p>
@@ -9,13 +10,17 @@
     <p>Death Rate: {{ record.death_rate }}</p>
     <p>Age Adjusted Death Rate: {{ record.age_adjusted_death_rate }}</p>
 
-    <DeathsBarChart :record="record" />
+    <div v-if="record.death_rate" class="charts">
+      <DeathsBarChart :record="record" />
+      <DoughnutChart :record="record" />
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted,  } from 'vue'
-import DeathsBarChart from './deathbarchart.vue'
+import { ref, onMounted } from 'vue'
+import DeathsBarChart from '@/components/deathbarchart.vue'
+import DoughnutChart from '@/components/doughnutchart.vue'
 
 const record = ref({})
 
@@ -48,5 +53,12 @@ h1 {
 p {
   margin: 0;
   color: #333;
+}
+
+.charts {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-top: 16px;
 }
 </style>
