@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <router-link to="/">← Back</router-link>
+    <RouterLink to="/">← Back</RouterLink>
     <h1>{{ record.leading_cause }}</h1>
     <p>Year: {{ record.year }}</p>
     <p>Sex: {{ record.sex }}</p>
@@ -9,20 +9,28 @@
     <p>Death Rate: {{ record.death_rate }}</p>
     <p>Age Adjusted Death Rate: {{ record.age_adjusted_death_rate }}</p>
  
-    <DeathsBarChart v-if="record.death_rate" :record="record" />
+    <div class="charts">
+      <DeathsBarChart :record="record" />
+      <DoughnutChart :record="record" />
+    </div>
   </div>
 </template>
  
 <script setup>
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import DeathsBarChart from '@/components/deathbarchart.vue'
 import DoughnutChart from '@/components/doughnutchart.vue'
-
-const route = useRoute()
  
-const record = computed(() => {
-  return records[route.params.id] || {}
+const record = ref({})
+const router = useRouter()
+ 
+function goBack() {
+  router.push('/')
+}
+ 
+onMounted(() => {
+  record.value = history.state?.record || {}
 })
 </script>
  
@@ -36,9 +44,15 @@ const record = computed(() => {
   gap: 12px;
 }
  
-a {
+button {
+  background: none;
+  border: none;
   color: #c0392b;
   font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0;
+  text-align: left;
 }
  
 h1 {
@@ -50,5 +64,12 @@ h1 {
 p {
   margin: 0;
   color: #333;
+}
+ 
+.charts {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-top: 16px;
 }
 </style>
