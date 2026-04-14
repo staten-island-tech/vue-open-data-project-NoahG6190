@@ -22,17 +22,17 @@ const props = defineProps({
   },
 })
 
-const causePath = computed(() => {
-  return {
-    name: 'detail',
-    params: { id: props.id },
-  }
-})
+
+const causePath = computed(() => ({
+  name: 'detail',
+  params: { id: props.id },
+  state: { record: props.record }
+}))
 </script>
 
 <style scoped>
 .card {
-  background-color: #eaeafc;
+  background-color: #eaf0ff;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -43,10 +43,9 @@ const causePath = computed(() => {
   height: 100%;
   border-radius: 8px;
   box-shadow: 0 6px 18px rgba(12,22,39,0.06);
-  border: 1px solid rgba(37,99,235,0.05);
+  border: 1px solid rgba(37,99,235,0.06);
 }
-
-.card:hover{
+.card:hover {
   transform: translateY(-6px);
 }
 </style>

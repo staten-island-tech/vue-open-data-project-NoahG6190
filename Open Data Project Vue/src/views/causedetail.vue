@@ -1,77 +1,85 @@
 <template>
   <div class="page">
-    <button @click="router.back()">← Back</button>
+    <router-link to="/">← Back to List</router-link>
 
-    <h1>{{ record.leading_cause }}</h1>
-    <p>Year: {{ record.year }}</p>
-    <p>Sex: {{ record.sex }}</p>
-    <p>Race / Ethnicity: {{ record.race_ethnicity }}</p>
-    <p>Deaths: {{ record.deaths }}</p>
-    <p>Death Rate: {{ record.death_rate }}</p>
-    <p>Age Adjusted Death Rate: {{ record.age_adjusted_death_rate }}</p>
+    <div v-if="hasRecord">
+      <h1>{{ record.leading_cause }}</h1>
+      <h2>{{ record.year }}</h2>
+      <p>Sex: {{ record.sex }}</p>
+      <p>Race / Ethnicity: {{ record.race_ethnicity }}</p>
+      <p>Deaths: {{ record.deaths }}</p>
+      <p>Death Rate: {{ record.death_rate }}</p>
+      <p>Age Adjusted Death Rate: {{ record.age_adjusted_death_rate }}</p>
 
-    <div class="charts" v-if="record && Object.keys(record).length">
-      <DeathsBarChart :record="record" />
-      <DoughnutChart :record="record" />
+      <div class="charts" v-if="hasRecord">
+        <DeathsBarChart :record="record" />
+        <DoughnutChart :record="record" />
+      </div>
+    </div>
+
+    <div v-else>
+      <p>Loading detail...</p>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { ref, onMounted, computed } from 'vue'
+import { useRoute } from 'vue-router'
 import DeathsBarChart from '@/components/deathbarchart.vue'
 import DoughnutChart from '@/components/doughnutchart.vue'
 
-const record = ref({})
-const router = useRouter()
 const route = useRoute()
+const record = ref({})
 
-onMounted(() => {
-  const id = route.params.id
+const hasRecord = computed(() => record.value && Object.keys(record.value).length > 0)
 
-  const data = JSON.parse(localStorage.getItem('records')) || []
+onMounted(async () => {
+  // try history state first (fast when navigating from the list)
+  const stateRecord = history.state?.record
+  if (stateRecord && Object.keys(stateRecord).length) {
+    record.value = stateRecord
+    return
+  }
 
-  record.value = data[id] || {}
+  // fallback: fetch list and use index param (your list passes index as id)
+  const id = Number(route.params.id)
+  if (!Number.isFinite(id)) {
+    record.value = {}
+    return
+  }
+
+  try {
+    const resp = await fetch('https://data.cityofnewyork.us/resource/jb7j-dtam.json')
+    const data = await resp.json()
+    record.value = Array.isArray(data) ? (data[id] || {}) : {}
+  } catch (err) {
+    console.error('failed to fetch detail data', err)
+    record.value = {}
+  }
 })
 </script>
 
 <style scoped>
 .page {
   width: 90%;
-  max-width: 600px;
-  margin: 40px auto;
+  max-width: 720px;
+  margin: 30px auto;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-button {
-  background: none;
-  border: none;
-  color: #c0392b;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 1rem;
-  padding: 0;
-  text-align: left;
-}
-
-h1 {
-  font-size: 1.6rem;
-  color: #1a1a2e;
-  margin: 0;
-}
-
-p {
-  margin: 0;
-  color: #333;
-}
-
 .charts {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 20px;
   margin-top: 16px;
+}
+
+a {
+  color: #1a73e8;
+  font-weight: 600;
+  text-decoration: none;
 }
 </style>
