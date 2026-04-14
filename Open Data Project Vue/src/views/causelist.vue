@@ -1,26 +1,34 @@
+
 <template>
-  <div class="page">
-    <router-link to="/">← Back</router-link>
+  <div class="detail">
+    <router-link to="/"> Back to List</router-link>
     <h1>{{ record.leading_cause }}</h1>
-    <p>Year: {{ record.year }}</p>
+    <h2>{{ record.year }}</h2>
     <p>Sex: {{ record.sex }}</p>
     <p>Race / Ethnicity: {{ record.race_ethnicity }}</p>
     <p>Deaths: {{ record.deaths }}</p>
     <p>Death Rate: {{ record.death_rate }}</p>
     <p>Age Adjusted Death Rate: {{ record.age_adjusted_death_rate }}</p>
+<<<<<<< HEAD:Open Data Project Vue/src/views/causelist.vue
  
     <div class="charts">
       <DeathsBarChart :record="record" />
       <DoughnutChart :record="record" />
     </div>
+=======
+>>>>>>> parent of 675b9d6 (new code):Open Data Project Vue/src/components/causedetail.vue
   </div>
 </template>
  
 <script setup>
 import { ref, onMounted } from 'vue'
+<<<<<<< HEAD:Open Data Project Vue/src/views/causelist.vue
 import DeathsBarChart from '@/components/deathbarchart.vue'
 import DoughnutChart from '@/components/doughnutchart.vue'
  
+=======
+
+>>>>>>> parent of 675b9d6 (new code):Open Data Project Vue/src/components/causedetail.vue
 const record = ref({})
  
 onMounted(() => {
@@ -29,6 +37,7 @@ onMounted(() => {
 </script>
  
 <style scoped>
+<<<<<<< HEAD:Open Data Project Vue/src/views/causelist.vue
 .page {
   width: 90%;
   max-width: 600px;
@@ -52,6 +61,11 @@ h1 {
 p {
   margin: 0;
   color: #333;
+=======
+.detail {
+  width: 80vw;
+  margin: 30px auto;
+>>>>>>> parent of 675b9d6 (new code):Open Data Project Vue/src/components/causedetail.vue
 }
  
 .charts {

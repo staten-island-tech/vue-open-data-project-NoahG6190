@@ -1,10 +1,10 @@
 <template>
   <router-link :to="causePath" class="card">
-    <span class="card-year">{{ record.year }}</span>
-    <h2 class="card-cause">{{ record.leading_cause }}</h2>
+    <h3>{{ record.year }}</h3>
+    <h2>{{ record.leading_cause }}</h2>
     <p>{{ record.sex }}</p>
     <p>{{ record.race_ethnicity }}</p>
-    <p class="card-deaths">{{ record.deaths }} deaths</p>
+    <p>{{ record.deaths }} deaths</p>
   </router-link>
 </template>
 
@@ -26,53 +26,27 @@ const causePath = computed(() => {
   return {
     name: 'detail',
     params: { id: props.id },
-    state: { record: props.record },
   }
 })
 </script>
 
 <style scoped>
 .card {
-  background-color: #f0f4ff;
-  border-left: 4px solid #1a1a2e;
-  border-radius: 8px;
-  padding: 20px;
-  text-decoration: none;
-  color: #1a1a2e;
+  background-color: #eaeafc;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  width: calc(33% - 20px);
-  box-sizing: border-box;
-  transition: background-color 0.2s;
-}
-
-.card:hover {
-  background-color: #dce4ff;
-}
-
-.card-year {
-  font-size: 0.75rem;
-  font-weight: bold;
+  justify-content: space-between;
+  padding: 14px;
+  text-decoration: none;
+  color: black;
   text-transform: uppercase;
-  color: #c0392b;
+  height: 100%;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(12,22,39,0.06);
+  border: 1px solid rgba(37,99,235,0.05);
 }
 
-.card-cause {
-  font-size: 1rem;
-  margin: 4px 0;
-  line-height: 1.4;
-}
-
-p {
-  margin: 0;
-  font-size: 0.85rem;
-  color: #555;
-}
-
-.card-deaths {
-  font-weight: bold;
-  color: #1a1a2e;
-  margin-top: 8px;
+.card:hover{
+  transform: translateY(-6px);
 }
 </style>

@@ -1,6 +1,7 @@
 <template>
   <div class="page">
-    <RouterLink to="/">← Back</RouterLink>
+    <button @click="router.back()">← Back</button>
+
     <h1>{{ record.leading_cause }}</h1>
     <p>Year: {{ record.year }}</p>
     <p>Sex: {{ record.sex }}</p>
@@ -8,32 +9,33 @@
     <p>Deaths: {{ record.deaths }}</p>
     <p>Death Rate: {{ record.death_rate }}</p>
     <p>Age Adjusted Death Rate: {{ record.age_adjusted_death_rate }}</p>
- 
-    <div class="charts">
+
+    <div class="charts" v-if="record && Object.keys(record).length">
       <DeathsBarChart :record="record" />
       <DoughnutChart :record="record" />
     </div>
   </div>
 </template>
- 
+
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import DeathsBarChart from '@/components/deathbarchart.vue'
 import DoughnutChart from '@/components/doughnutchart.vue'
- 
+
 const record = ref({})
 const router = useRouter()
- 
-function goBack() {
-  router.push('/')
-}
- 
+const route = useRoute()
+
 onMounted(() => {
-  record.value = history.state?.record || {}
+  const id = route.params.id
+
+  const data = JSON.parse(localStorage.getItem('records')) || []
+
+  record.value = data[id] || {}
 })
 </script>
- 
+
 <style scoped>
 .page {
   width: 90%;
@@ -43,7 +45,7 @@ onMounted(() => {
   flex-direction: column;
   gap: 12px;
 }
- 
+
 button {
   background: none;
   border: none;
@@ -54,18 +56,18 @@ button {
   padding: 0;
   text-align: left;
 }
- 
+
 h1 {
   font-size: 1.6rem;
   color: #1a1a2e;
   margin: 0;
 }
- 
+
 p {
   margin: 0;
   color: #333;
 }
- 
+
 .charts {
   display: flex;
   flex-direction: column;
